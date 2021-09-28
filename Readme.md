@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
-* Студент: [Katerina Ponomareva](https://up.htmlacademy.ru/react/8/user/929085).
-* Наставник: `Неизвестно`.
+- Студент: [Katerina Ponomareva](https://up.htmlacademy.ru/react/8/user/929085).
+- Наставник: [Dmitriy Kolotov](https://htmlacademy.ru/profile/id87650).
 
 ---
 
