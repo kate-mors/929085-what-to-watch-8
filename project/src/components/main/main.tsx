@@ -109,8 +109,8 @@ function Main({titlesList, filmTitle, filmGenre, filmYear} : MainScreenProps): J
           </ul>
 
           <div className="catalog__films-list">
-            {titlesList.map((titleItem, index) =>
-              <FilmCard key={titleItem + index} titleItem={titleItem} />)}
+            {titlesList.map((titleItem) =>
+              <FilmCard key={titleItem} titleItem={titleItem} />)}
           </div>
 
           <div className="catalog__more">

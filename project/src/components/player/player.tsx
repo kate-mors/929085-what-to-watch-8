@@ -3,7 +3,7 @@ import CSS from 'csstype';
 function Player(): JSX.Element {
   const styleProperty: CSS.Properties = {
     'left': '30%',
-  }
+  };
 
   return (
     <div className="player">
@@ -38,7 +38,7 @@ function Player(): JSX.Element {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Player
+export default Player;
