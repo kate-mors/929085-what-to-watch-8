@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { AppRoute, LogInStatus } from '../../const';
 import Main from '../main/main';
 import AddReview from '../add-review/add-review';
 import Film from '../film/film';
@@ -7,6 +8,7 @@ import MyList from '../my-list/my-list';
 import PageNotFound from '../page-not-found/page-not-found';
 import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
+import PrivateRoute from '../privateroute/private-route';
 
 type AppProps = {
   titlesList: string[];
@@ -19,7 +21,7 @@ function App({titlesList, filmTitle, filmGenre, filmYear}:AppProps): JSX.Element
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact>
+        <Route path={AppRoute.Main} exact>
           <Main
             titlesList={titlesList}
             filmTitle={filmTitle}
@@ -27,19 +29,23 @@ function App({titlesList, filmTitle, filmGenre, filmYear}:AppProps): JSX.Element
             filmYear={filmYear}
           />
         </Route>
-        <Route path="/login" exact>
+        <Route path={AppRoute.SignIn} exact>
           <SignIn />
         </Route>
-        <Route path="/mylist" exact>
-          <MyList />
-        </Route>
-        <Route path="/films/:id?" exact>
+        <PrivateRoute
+          exact
+          path={AppRoute.MyList}
+          render={() => <MyList />}
+          logInStatus={LogInStatus.LogedIn}
+        >
+        </PrivateRoute>
+        <Route path={AppRoute.Film} exact>
           <Film />
         </Route>
-        <Route path="/films/:id/review" exact>
+        <Route path={AppRoute.AddReview} exact>
           <AddReview />
         </Route>
-        <Route path="/player/:id" exact>
+        <Route path={AppRoute.Player} exact>
           <Player />
         </Route>
         <Route>
