@@ -1,5 +1,5 @@
 import React from 'react';
-import FilmCard from '../film/film-card';
+import FilmCard from '../film-card/film-card';
 
 type MainScreenProps = {
   titlesList: string [];
