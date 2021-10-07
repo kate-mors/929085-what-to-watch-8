@@ -7,7 +7,3 @@ export enum AppRoute {
   Player = '/player/:id'
 }
 
-export enum LogInStatus {
-  LogedIn = 'LOGEDIN',
-  NotLogedIn = 'NO_LOGEDIN',
-}

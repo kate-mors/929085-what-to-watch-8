@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { AppRoute, LogInStatus } from '../../const';
+import { AppRoute } from '../../const';
 import Main from '../main/main';
 import AddReview from '../add-review/add-review';
 import Film from '../film/film';
@@ -36,7 +36,7 @@ function App({titlesList, filmTitle, filmGenre, filmYear}:AppProps): JSX.Element
           exact
           path={AppRoute.MyList}
           render={() => <MyList />}
-          logInStatus={LogInStatus.LogedIn}
+          isLoggedIn={false}
         >
         </PrivateRoute>
         <Route path={AppRoute.Film} exact>

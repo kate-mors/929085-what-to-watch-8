@@ -1,18 +1,19 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { RouteProps } from 'react-router';
-import { AppRoute, LogInStatus } from '../../const';
+import { AppRoute } from '../../const';
+
 
 type PrivateRouteProps = RouteProps & {
   render: () => JSX.Element;
-  logInStatus: LogInStatus;
-}
+  isLoggedIn: boolean;
+};
 
-function PrivateRoute({ exact, path, render, logInStatus }: PrivateRouteProps): JSX.Element {
+function PrivateRoute({ exact, path, render, isLoggedIn }: PrivateRouteProps): JSX.Element {
   return (
     <Route exact={exact} path={path}
       render={() => (
-        logInStatus === LogInStatus.LogedIn ? render() : <Redirect to={AppRoute.SignIn} />
+        isLoggedIn ? render() : <Redirect to={AppRoute.SignIn} />
       )}
     />
   );
