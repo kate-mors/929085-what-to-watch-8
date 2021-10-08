@@ -102,7 +102,7 @@ function Film(): JSX.Element {
                       <p className="review__text">
                       Discerning travellers and Wes Anderson fans will luxuriate
                       in the glorious Mittel-European kitsch of one of the
-                      director&apos;s funniest and most exquisitely designed
+                      director\'s funniest and most exquisitely designed
                       films in years.
                       </p>
 
@@ -120,9 +120,9 @@ function Film(): JSX.Element {
                   <div className="review">
                     <blockquote className="review__quote">
                       <p className="review__text">
-                      Anderson&apos;s films are too precious for some, but for
+                      Anderson\'s films are too precious for some, but for
                       those of us willing to lose ourselves in them,
-                      they&apos;re a delight. &quot;The Grand Budapest
+                      they\'re a delight. &quot;The Grand Budapest
                       Hotel&quot; is no different, except that he has added a
                       hint of gravitas to the mix, improving the recipe.
                       </p>
@@ -141,8 +141,8 @@ function Film(): JSX.Element {
                   <div className="review">
                     <blockquote className="review__quote">
                       <p className="review__text">
-                      I didn&apos;t find it amusing, and while I can appreciate
-                      the creativity, it&apos;s an hour and 40 minutes I wish I
+                      I didn\'t find it amusing, and while I can appreciate
+                      the creativity, it\'s an hour and 40 minutes I wish I
                       could take back.
                       </p>
 
