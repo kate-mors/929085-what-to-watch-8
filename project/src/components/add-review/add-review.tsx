@@ -1,13 +1,20 @@
 import React from 'react';
+import { Films } from '../../types/films';
 
-function AddReview(): JSX.Element {
+type AddReviewProps = {
+  films: Films,
+}
+
+function AddReview({ films}: AddReviewProps): JSX.Element {
+  const [film] = films;
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
+            src={film.background_image}
+            alt={film.name}
           />
         </div>
 
@@ -26,7 +33,7 @@ function AddReview(): JSX.Element {
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
                 <a href="film-page.html" className="breadcrumbs__link">
-                  The Grand Budapest Hotel
+                  {film.name}
                 </a>
               </li>
               <li className="breadcrumbs__item">
@@ -54,8 +61,8 @@ function AddReview(): JSX.Element {
 
         <div className="film-card__poster film-card__poster--small">
           <img
-            src="img/the-grand-budapest-hotel-poster.jpg"
-            alt="The Grand Budapest Hotel poster"
+            src={film.preview_image}
+            alt={film.name}
             width="218"
             height="327"
           />
