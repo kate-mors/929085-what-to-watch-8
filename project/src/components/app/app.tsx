@@ -10,6 +10,7 @@ import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import PrivateRoute from '../privateroute/private-route';
 import { Films } from '../../types/films';
+import { reviews } from '../../mocks/reviews';
 
 type AppProps = {
   films: Films
@@ -34,7 +35,7 @@ function App({ films }: AppProps): JSX.Element {
         >
         </PrivateRoute>
         <Route path={AppRoute.Film} exact>
-          <Film films={films} />
+          <Film films={films} reviews={reviews} />
         </Route>
         <Route path={AppRoute.AddReview} exact>
           <AddReview films={films} />
