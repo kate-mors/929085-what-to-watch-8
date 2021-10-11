@@ -1,6 +1,8 @@
 import React from 'react';
 import FilmsList from '../films-list/films-list';
 import { Films } from '../../types/films';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type MainScreenProps = {
   films: Films;
@@ -20,11 +22,11 @@ function Main({ films }: MainScreenProps): JSX.Element {
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <a className="logo__link">
+            <Link className="logo__link" to={AppRoute.Main}>
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <ul className="user-block">
@@ -47,7 +49,12 @@ function Main({ films }: MainScreenProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={film.poster_image} alt={film.name} width="218" height="327" />
+              <img
+                src={film.poster_image}
+                alt={film.name}
+                width="218"
+                height="327"
+              />
             </div>
 
             <div className="film-card__desc">
@@ -150,11 +157,11 @@ function Main({ films }: MainScreenProps): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <a className="logo__link logo__link--light">
+            <Link className="logo__link logo__link--light" to={AppRoute.Main}>
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">

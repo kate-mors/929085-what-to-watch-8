@@ -1,40 +1,42 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Films } from '../../types/films';
+import { AppRoute } from '../../const';
 
 type AddReviewProps = {
   films: Films,
 }
 
-function AddReview({ films}: AddReviewProps): JSX.Element {
+function AddReview({films}: AddReviewProps): JSX.Element {
   const [film] = films;
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img
-            src={film.background_image}
-            alt={film.name}
-          />
+          <img src={film.background_image} alt={film.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to={AppRoute.Main} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">
+                <Link
+                  to={`${AppRoute.Film}/${film.id}`}
+                  className="breadcrumbs__link"
+                >
                   {film.name}
-                </a>
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Films } from '../../types/films';
 
 type MyListProps = {
@@ -53,14 +55,15 @@ function MyList({ films }: MyListProps): JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link
+                className="small-film-card__link"
+                to={`${AppRoute.Film}/${film.id}`}
+              >
                 {film.name}
-              </a>
+              </Link>
             </h3>
           </article>
           )
-
-
         </div>
       </section>
 
