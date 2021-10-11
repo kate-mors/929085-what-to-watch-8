@@ -1,4 +1,6 @@
-export const reviews = [
+import { Reviews } from '../types/reviews';
+
+export const reviews: Reviews = [
   {
     'id': 1,
     'user': {
