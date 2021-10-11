@@ -9,25 +9,19 @@ import PageNotFound from '../page-not-found/page-not-found';
 import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import PrivateRoute from '../privateroute/private-route';
+import { Films } from '../../types/films';
 
 type AppProps = {
-  titlesList: string[];
-  filmTitle: string;
-  filmGenre: string;
-  filmYear: number;
+  films: Films
 }
 
-function App({titlesList, filmTitle, filmGenre, filmYear}:AppProps): JSX.Element {
+function App({ films }: AppProps): JSX.Element {
+
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Main} exact>
-          <Main
-            titlesList={titlesList}
-            filmTitle={filmTitle}
-            filmGenre={filmGenre}
-            filmYear={filmYear}
-          />
+          <Main films={films} />
         </Route>
         <Route path={AppRoute.SignIn} exact>
           <SignIn />
@@ -35,18 +29,18 @@ function App({titlesList, filmTitle, filmGenre, filmYear}:AppProps): JSX.Element
         <PrivateRoute
           exact
           path={AppRoute.MyList}
-          render={() => <MyList />}
+          render={() => <MyList films={films} />}
           isLoggedIn={false}
         >
         </PrivateRoute>
         <Route path={AppRoute.Film} exact>
-          <Film />
+          <Film films={films} />
         </Route>
         <Route path={AppRoute.AddReview} exact>
-          <AddReview />
+          <AddReview films={films} />
         </Route>
         <Route path={AppRoute.Player} exact>
-          <Player />
+          <Player films={films} />
         </Route>
         <Route>
           <PageNotFound />
