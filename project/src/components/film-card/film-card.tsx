@@ -1,15 +1,24 @@
 type FilmProps = {
-  titleItem: string;
-}
+  name: string;
+  previewImage: string;
+};
 
-function FilmCard({titleItem}:FilmProps): JSX.Element {
+function FilmCard({ name, previewImage }: FilmProps): JSX.Element {
+
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={titleItem} width="280" height="175" />
+        <img
+          src={previewImage}
+          alt={name}
+          width="280"
+          height="175"
+        />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{titleItem}</a>
+        <a className="small-film-card__link" href="film-page.html">
+          {name}
+        </a>
       </h3>
     </article>
   );
