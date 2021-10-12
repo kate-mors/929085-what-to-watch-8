@@ -1,24 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { Films } from '../../types/films';
+import { FilmsType, FilmType } from '../../types/films';
+import FilmCard from '../film-card/film-card';
 
 type MyListProps = {
-  films: Films
-}
+  films: FilmsType;
+  setActiveFilmCard: React.Dispatch<React.SetStateAction<FilmType>>;
+};
 
-function MyList({ films }: MyListProps): JSX.Element {
+function MyList({ films, setActiveFilmCard }: MyListProps): JSX.Element {
   const [film] = films;
 
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <a href="main.html" className="logo__link">
+          <Link to={AppRoute.Main} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <h1 className="page-title user-page__title">My list</h1>
@@ -45,35 +47,20 @@ function MyList({ films }: MyListProps): JSX.Element {
 
         <div className="catalog__films-list">
           if ({film.is_favorite})(
-          <article className="small-film-card catalog__films-card">
-            <div className="small-film-card__image">
-              <img
-                src={film.preview_image}
-                alt={film.name}
-                width="280"
-                height="175"
-              />
-            </div>
-            <h3 className="small-film-card__title">
-              <Link
-                className="small-film-card__link"
-                to={`${AppRoute.Film}/${film.id}`}
-              >
-                {film.name}
-              </Link>
-            </h3>
-          </article>
-          )
+          <FilmCard
+            film={film}
+            setActiveFilmCard={setActiveFilmCard}
+          />)
         </div>
       </section>
 
       <footer className="page-footer">
         <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
+          <Link to={AppRoute.Main} className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <div className="copyright">

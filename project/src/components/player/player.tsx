@@ -1,16 +1,14 @@
 import CSS from 'csstype';
-import { Films } from '../../types/films';
+import { FilmType } from '../../types/films';
 
 type PlayerProps = {
-  films: Films,
+  film: FilmType,
 }
 
-function Player({films}: PlayerProps): JSX.Element {
+function Player({film}: PlayerProps): JSX.Element {
   const styleProperty: CSS.Properties = {
     'left': '30%',
   };
-
-  const [film] = films;
 
   return (
     <div className="player">

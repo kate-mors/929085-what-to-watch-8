@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Films } from '../../types/films';
+import { FilmType } from '../../types/films';
 import { AppRoute } from '../../const';
 import ReviewForm from '../review-form/review-form';
 
 type AddReviewProps = {
-  films: Films,
+  film: FilmType,
 }
 
-function AddReview({films}: AddReviewProps): JSX.Element {
-  const [film] = films;
+function AddReview({film}: AddReviewProps): JSX.Element {
 
   return (
     <section className="film-card film-card--full">
@@ -33,7 +32,7 @@ function AddReview({films}: AddReviewProps): JSX.Element {
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
                 <Link
-                  to={`${AppRoute.Film}/${film.id}`}
+                  to={`film/${film.id}`}
                   className="breadcrumbs__link"
                 >
                   {film.name}
