@@ -1,11 +1,11 @@
 import React from 'react';
 import FilmsList from '../films-list/films-list';
-import { Films } from '../../types/films';
+import { FilmsType } from '../../types/films';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type MainScreenProps = {
-  films: Films;
+  films: FilmsType;
 };
 
 function Main({ films }: MainScreenProps): JSX.Element {
