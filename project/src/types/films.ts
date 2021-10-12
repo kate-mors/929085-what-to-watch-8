@@ -1,4 +1,4 @@
-export type Film = {
+export type FilmType = {
   'id': number,
   'name': string,
   'poster_image': string,
@@ -18,4 +18,4 @@ export type Film = {
   'is_favorite': boolean,
 }
 
-export type Films = Film[];
+export type FilmsType = FilmType[];

@@ -1,14 +1,14 @@
-export type User = {
+export type UserType = {
   id: number,
   name: string,
 }
 
-export type Review = {
+export type ReviewType = {
   id: number,
-  user: User,
+  user: UserType,
   rating: number,
   comment: string,
-  date: string,
+  date: string | Date,
 }
 
-export type Reviews = Review[];
+export type ReviewsType = ReviewType[];
