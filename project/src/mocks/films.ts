@@ -1,6 +1,6 @@
-import {Films} from '../types/films';
+import {FilmsType} from '../types/films';
 
-export const films: Films = [
+export const films: FilmsType = [
   {
     'id': 1,
     'name': 'The Grand Budapest Hotel',
@@ -75,7 +75,7 @@ export const films: Films = [
     'runTime': 91,
     'genre': 'Comedy',
     'released': 2007,
-    'is_favorite': false,
+    'is_favorite': true,
   },
   {
     'id': 5,
@@ -132,7 +132,7 @@ export const films: Films = [
     'runTime': 122,
     'genre': 'Thrillers',
     'released': 2007,
-    'is_favorite': false,
+    'is_favorite': true,
   },
   {
     'id': 8,
@@ -151,6 +151,8 @@ export const films: Films = [
     'runTime': 94,
     'genre': 'Kids & Family',
     'released': 2012,
-    'is_favorite': false,
+    'is_favorite': true,
   },
 ];
+
+export const [film] = films;
