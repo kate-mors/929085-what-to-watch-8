@@ -1,17 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { Films } from '../../types/films';
-import { Reviews } from '../../types/reviews';
-import AddReview from '../add-review/add-review';
+import { FilmsType, FilmType } from '../../types/films';
+import { ReviewsType } from '../../types/reviews';
+import FilmsList from '../films-list/films-list';
 
 type FilmProps = {
-  films: Films,
-  reviews: Reviews,
+  films: FilmsType,
+  reviews: ReviewsType,
 }
 
 function Film({ films, reviews }: FilmProps): JSX.Element {
-  const [film] = films;
+  const { id } = useParams<{ id?: string }>();
+  const film = films.find((filmItem) => filmItem.id === Number(id)) || ({} as FilmType);
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -75,8 +78,11 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={AppRoute.AddReview} className="btn film-card__button">
-                  <AddReview films={films} />
+                <Link
+                  to={`/films/${film.id}/review`}
+                  className="btn film-card__button"
+                >
+                  Add review
                 </Link>
               </div>
             </div>
@@ -114,12 +120,12 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
                   {reviews.map((review) => (
                     <div className="review" key={review.id}>
                       <blockquote className="review__quote">
-                        <p className="review__text">
-                          {review.comment}
-                        </p>
+                        <p className="review__text">{review.comment}</p>
 
                         <footer className="review__details">
-                          <cite className="review__author">{review.user.name}</cite>
+                          <cite className="review__author">
+                            {review.user.name}
+                          </cite>
                           <time className="review__date" dateTime="2016-12-24">
                             {review.date}
                           </time>
@@ -134,12 +140,12 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
                   {reviews.map((review) => (
                     <div className="review" key={review.id}>
                       <blockquote className="review__quote">
-                        <p className="review__text">
-                          {review.comment}
-                        </p>
+                        <p className="review__text">{review.comment}</p>
 
                         <footer className="review__details">
-                          <cite className="review__author">{review.user.name}</cite>
+                          <cite className="review__author">
+                            {review.user.name}
+                          </cite>
                           <time className="review__date" dateTime="2016-12-24">
                             {review.date}
                           </time>
@@ -160,28 +166,7 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            if ({film.is_favorite})(
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img
-                  src={film.preview_image}
-                  alt={film.name}
-                  width="280"
-                  height="175"
-                />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link
-                  className="small-film-card__link"
-                  to={`${AppRoute.Film}/${film.id}`}
-                >
-                  {film.name}
-                </Link>
-              </h3>
-            </article>
-            )
-          </div>
+          <FilmsList films={films} />
         </section>
 
         <footer className="page-footer">

@@ -1,14 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FilmType } from '../../types/films';
+import { Link, useParams } from 'react-router-dom';
+import { FilmsType, FilmType } from '../../types/films';
 import { AppRoute } from '../../const';
 import ReviewForm from '../review-form/review-form';
 
 type AddReviewProps = {
-  film: FilmType,
+  films: FilmsType,
 }
 
-function AddReview({film}: AddReviewProps): JSX.Element {
+function AddReview({ films }: AddReviewProps): JSX.Element {
+  const { id } = useParams<{ id?: string }>();
+  const film =
+    films.find((filmItem) => filmItem.id === Number(id)) || ({} as FilmType);
 
   return (
     <section className="film-card film-card--full">

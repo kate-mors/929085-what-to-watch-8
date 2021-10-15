@@ -1,14 +1,19 @@
 import CSS from 'csstype';
-import { FilmType } from '../../types/films';
+import { useParams } from 'react-router-dom';
+import { FilmsType, FilmType } from '../../types/films';
+
 
 type PlayerProps = {
-  film: FilmType,
+  films: FilmsType,
 }
 
-function Player({film}: PlayerProps): JSX.Element {
+function Player({films}: PlayerProps): JSX.Element {
   const styleProperty: CSS.Properties = {
     'left': '30%',
   };
+  const { id } = useParams<{ id?: string }>();
+  const film =
+    films.find((filmItem) => filmItem.id === Number(id)) || ({} as FilmType);
 
   return (
     <div className="player">
