@@ -6,6 +6,6 @@ import { films } from './mocks/films';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App films = {films} />
+    <App films={films} />
   </React.StrictMode>,
   document.getElementById('root'));
