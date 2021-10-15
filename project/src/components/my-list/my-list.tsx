@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { FilmsType, FilmType } from '../../types/films';
-import FilmCard from '../film-card/film-card';
+import { FilmsType } from '../../types/films';
+import FilmsList from '../films-list/films-list';
 
 type MyListProps = {
   films: FilmsType;
-  setActiveFilmCard: React.Dispatch<React.SetStateAction<FilmType>>;
 };
 
-function MyList({ films, setActiveFilmCard }: MyListProps): JSX.Element {
+function MyList({ films }: MyListProps): JSX.Element {
   const [film] = films;
 
   return (
@@ -47,9 +46,8 @@ function MyList({ films, setActiveFilmCard }: MyListProps): JSX.Element {
 
         <div className="catalog__films-list">
           if ({film.is_favorite})(
-          <FilmCard
-            film={film}
-            setActiveFilmCard={setActiveFilmCard}
+          <FilmsList
+            films={films}
           />)
         </div>
       </section>
