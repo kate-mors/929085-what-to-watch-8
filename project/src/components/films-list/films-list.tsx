@@ -1,5 +1,5 @@
 import FilmCard from '../film-card/film-card';
-import { FilmsType, FilmType } from '../../types/films';
+import { FilmsType } from '../../types/films';
 import { useState } from 'react';
 
 type FilmsListProps = {
@@ -7,7 +7,11 @@ type FilmsListProps = {
 }
 
 function FilmsList({ films }: FilmsListProps): JSX.Element {
-  const [, setActiveFilmCard] = useState({} as FilmType);
+  const [, setActiveFilmCard] = useState(-1);
+
+  const onActiveCardHover = (id: number) => {
+    setActiveFilmCard(id);
+  };
 
   return (
     <div className="catalog__films-list">
@@ -15,10 +19,9 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
         <FilmCard
           key={film.id}
           film={film}
-          setActiveFilmCard={setActiveFilmCard}
+          onActiveCardHover={onActiveCardHover}
         />
-      ),
-      )}
+      ))}
     </div>
   );
 }
