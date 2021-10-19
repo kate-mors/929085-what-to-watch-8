@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import { useState, FormEvent } from 'react';
 
 function ReviewForm(): JSX.Element {
@@ -6,14 +6,16 @@ function ReviewForm(): JSX.Element {
   const [checked, setChecked] = useState(false);
   const [text, setText] = useState('');
 
-  const handleChange = () => setChecked((state) => !state);
+  const handleImputChange = () => setChecked((state) => !state);
 
-  const handleSubmit = (evt:FormEvent<HTMLFormElement >) => {
+  const handleTextAreaChange = (e:ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value);
+
+  const handleFormSubmit = (evt:FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
   };
 
   return (
-    <form action="#" className="add-review__form" onSubmit={handleSubmit}>
+    <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
       <div className="rating">
         <div className="rating__stars">
           {ratingStars.map((star) => (
@@ -25,14 +27,13 @@ function ReviewForm(): JSX.Element {
                 name="rating"
                 value={star}
                 checked={checked}
-                onChange={handleChange}
+                onChange={handleImputChange}
               />
               <label className="rating__label" htmlFor={`star-${star}`}>
                 Rating {star}
               </label>
             </>
           ))}
-
         </div>
       </div>
 
@@ -43,7 +44,7 @@ function ReviewForm(): JSX.Element {
           id="review-text"
           placeholder="Review text"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={handleTextAreaChange}
         >
         </textarea>
         <div className="add-review__submit">
