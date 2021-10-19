@@ -41,7 +41,7 @@ function Player({films}: PlayerProps): JSX.Element {
               Toggler
             </div>
           </div>
-          <div className="player__time-value">{film.runTime}</div>
+          <div className="player__time-value">{film.run_time}</div>
         </div>
 
         <div className="player__controls-row">
