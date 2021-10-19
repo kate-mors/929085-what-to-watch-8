@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { FilmsType } from '../../types/films';
-import FilmsList from '../films-list/films-list';
+import FilmCard from '../film-card/film-card';
 
 type MyListProps = {
   films: FilmsType;
+  onActiveCardHover: (id: number) => void;
 };
 
-function MyList({ films }: MyListProps): JSX.Element {
+function MyList({ films, onActiveCardHover}: MyListProps): JSX.Element {
   const [film] = films;
 
   return (
@@ -45,10 +46,7 @@ function MyList({ films }: MyListProps): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          if ({film.is_favorite})(
-          <FilmsList
-            films={films}
-          />)
+          {film.is_favorite ? <FilmCard film={film} onActiveCardHover={onActiveCardHover} /> : null}
         </div>
       </section>
 

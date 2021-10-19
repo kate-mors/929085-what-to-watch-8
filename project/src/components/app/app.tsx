@@ -14,9 +14,10 @@ import { reviews } from '../../mocks/reviews';
 
 type AppProps = {
   films: FilmsType;
+  onActiveCardHover: (id: number) => void;
 };
 
-function App({ films }: AppProps): JSX.Element {
+function App({ films, onActiveCardHover }: AppProps): JSX.Element {
 
   return (
     <BrowserRouter>
@@ -30,8 +31,10 @@ function App({ films }: AppProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.MyList}
-          render={() => <MyList films={films}/>}
-          isLoggedIn={false}
+          render={() => (
+            <MyList films={films} onActiveCardHover={onActiveCardHover} />
+          )}
+          isLoggedIn
         >
         </PrivateRoute>
         <Route path={AppRoute.Film} exact>

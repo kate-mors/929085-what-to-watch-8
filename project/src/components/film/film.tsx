@@ -2,9 +2,10 @@ import React from 'react';
 
 import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { FilmsType, FilmType } from '../../types/films';
+import { FilmsType } from '../../types/films';
 import { ReviewsType } from '../../types/reviews';
 import FilmsList from '../films-list/films-list';
+import {getCurrentFilm} from '../../utils';
 
 type FilmProps = {
   films: FilmsType,
@@ -12,8 +13,10 @@ type FilmProps = {
 }
 
 function Film({ films, reviews }: FilmProps): JSX.Element {
-  const { id } = useParams<{ id?: string }>();
-  const film = films.find((filmItem) => filmItem.id === Number(id)) || ({} as FilmType);
+  const { id } = useParams<{ id: string }>();
+
+  const film = getCurrentFilm(films, id);
+
 
   return (
     <>
@@ -60,24 +63,26 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button
+                <Link
                   className="btn btn--play film-card__button"
                   type="button"
+                  to={AppRoute.Player}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
-                <button
+                </Link>
+                <Link
                   className="btn btn--list film-card__button"
                   type="button"
+                  to={AppRoute.MyList}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                </button>
+                </Link>
                 <Link
                   to={`/films/${film.id}/review`}
                   className="btn film-card__button"
@@ -116,26 +121,6 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
               </nav>
 
               <div className="film-card__reviews film-card__row">
-                <div className="film-card__reviews-col">
-                  {reviews.map((review) => (
-                    <div className="review" key={review.id}>
-                      <blockquote className="review__quote">
-                        <p className="review__text">{review.comment}</p>
-
-                        <footer className="review__details">
-                          <cite className="review__author">
-                            {review.user.name}
-                          </cite>
-                          <time className="review__date" dateTime="2016-12-24">
-                            {review.date}
-                          </time>
-                        </footer>
-                      </blockquote>
-
-                      <div className="review__rating">{review.rating}</div>
-                    </div>
-                  ))}
-                </div>
                 <div className="film-card__reviews-col">
                   {reviews.map((review) => (
                     <div className="review" key={review.id}>
