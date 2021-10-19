@@ -12,7 +12,7 @@ export type FilmType = {
   'scores_count': number,
   'director': string | string[],
   'starring': string[],
-  'runTime': number,
+  'run_time': number,
   'genre': string,
   'released': number,
   'is_favorite': boolean,
