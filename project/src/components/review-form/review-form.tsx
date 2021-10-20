@@ -6,7 +6,7 @@ function ReviewForm(): JSX.Element {
   const [checked, setChecked] = useState(false);
   const [text, setText] = useState('');
 
-  const handleImputChange = () => setChecked((state) => !state);
+  const handleInputChange = () => setChecked((state) => !state);
 
   const handleTextAreaChange = (e:ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value);
 
@@ -27,7 +27,7 @@ function ReviewForm(): JSX.Element {
                 name="rating"
                 value={star}
                 checked={checked}
-                onChange={handleImputChange}
+                onChange={handleInputChange}
               />
               <label className="rating__label" htmlFor={`star-${star}`}>
                 Rating {star}
