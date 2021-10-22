@@ -2,7 +2,7 @@ import React from 'react';
 import FilmsList from '../films-list/films-list';
 import { FilmsType } from '../../types/films';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../utils/const';
 
 type MainScreenProps = {
   films: FilmsType;
