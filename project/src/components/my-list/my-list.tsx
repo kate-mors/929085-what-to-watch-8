@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../utils/const';
 import { FilmsType } from '../../types/films';
-import FilmCard from '../film-card/film-card';
+import FilmsList from '../films-list/films-list';
+import { getFavoriteFilms } from '../../utils/utils';
 
 type MyListProps = {
   films: FilmsType;
-  onActiveCardHover: (id: number) => void;
 };
 
-function MyList({ films, onActiveCardHover}: MyListProps): JSX.Element {
-  const [film] = films;
+function MyList({ films}: MyListProps): JSX.Element {
+  const film = getFavoriteFilms(films);
 
   return (
     <div className="user-page">
@@ -46,7 +46,7 @@ function MyList({ films, onActiveCardHover}: MyListProps): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {film.is_favorite ? <FilmCard film={film} onActiveCardHover={onActiveCardHover} /> : null}
+          <FilmsList films={film} />
         </div>
       </section>
 

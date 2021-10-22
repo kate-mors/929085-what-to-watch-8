@@ -18,7 +18,7 @@ export const films: FilmsType = [
     'run_time': 99,
     'genre': 'Comedy',
     'released': 2014,
-    'is_favorite': false,
+    'is_favorite': true,
   },
   {
     'id': 2,

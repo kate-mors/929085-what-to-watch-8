@@ -22,3 +22,5 @@ export const convertFilmRunTime = (time: number): string => {
 export const getCurrentFilm = (filmsArray: FilmsType, id: string) =>
   filmsArray.find((filmItem) => filmItem.id === Number(id)) || ({} as FilmType);
 
+export const getFavoriteFilms = (filmsArray: FilmsType) =>
+  filmsArray.filter((filmItem) => filmItem.is_favorite);
