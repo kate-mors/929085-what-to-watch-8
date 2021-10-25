@@ -3,9 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 type VideoPlayerProps = {
   src: string;
   isActive: boolean;
+  preview: string;
 };
 
-function VideoPlayer({ src, isActive}: VideoPlayerProps): JSX.Element {
+function VideoPlayer({ src, isActive, preview}: VideoPlayerProps): JSX.Element {
   const [, setIsLoading] = useState(true);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -27,8 +28,6 @@ function VideoPlayer({ src, isActive}: VideoPlayerProps): JSX.Element {
     let timeoutId;
 
     if (isActive) {
-      // eslint-disable-next-line no-console
-      console.log(src);
       timeoutId = setTimeout(() => videoRef.current?.play(), 1000);
     } else {
       videoRef.current?.load();
@@ -40,6 +39,7 @@ function VideoPlayer({ src, isActive}: VideoPlayerProps): JSX.Element {
     <video
       ref={videoRef}
       src={src}
+      poster={preview}
       className="player__video"
       muted
       width="280"

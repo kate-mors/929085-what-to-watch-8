@@ -11,28 +11,28 @@ type FilmCardProps = {
 function FilmCard({ film, onActiveCardHover }: FilmCardProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const mouseEnterHandler = () => {
+    onActiveCardHover(film.id);
+    setIsPlaying(true);
+  };
+
+  const mouseLeaveHandler = () => {
+    setIsPlaying(false);
+  };
+
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={() => onActiveCardHover(film.id)}
-      onMouseEnter={() => setIsPlaying(true)}
-      onMouseLeave={() => setIsPlaying(false)}
+      onMouseOver={mouseEnterHandler}
+      onMouseLeave={mouseLeaveHandler}
     >
       <div className="small-film-card__image">
-        {isPlaying ? (
-          <VideoPlayer
-            key={film.id}
-            src={film.preview_video_link}
-            isActive={isPlaying}
-          />
-        ) : (
-          <img
-            src={film.preview_image}
-            alt={film.name}
-            width="280"
-            height="175"
-          />
-        )}
+        <VideoPlayer
+          key={film.id}
+          src={film.preview_video_link}
+          preview={film.preview_image}
+          isActive={isPlaying}
+        />
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`films/${film.id}`}>
