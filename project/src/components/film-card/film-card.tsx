@@ -14,15 +14,11 @@ function FilmCard({ film, onActiveCardHover }: FilmCardProps): JSX.Element {
   const handleArticleMouseEnter = () => {
     onActiveCardHover(film.id);
     setIsPlaying(true);
-    // eslint-disable-next-line no-console
-    console.log('mouse enter');
   };
 
   const handleArticleMouseLeave = () => {
     onActiveCardHover(-1);
     setIsPlaying(false);
-    // eslint-disable-next-line no-console
-    console.log('mouse leave');
 
   };
 
