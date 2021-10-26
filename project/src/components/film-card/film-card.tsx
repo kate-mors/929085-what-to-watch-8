@@ -11,26 +11,31 @@ type FilmCardProps = {
 function FilmCard({ film, onActiveCardHover }: FilmCardProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const mouseEnterHandler = () => {
+  const handleArticleMouseEnter = () => {
     onActiveCardHover(film.id);
     setIsPlaying(true);
+    // eslint-disable-next-line no-console
+    console.log('mouse enter');
   };
 
-  const mouseLeaveHandler = () => {
+  const handleArticleMouseLeave = () => {
+    onActiveCardHover(-1);
     setIsPlaying(false);
+    // eslint-disable-next-line no-console
+    console.log('mouse leave');
+
   };
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={mouseEnterHandler}
-      onMouseLeave={mouseLeaveHandler}
+      onMouseOver={handleArticleMouseEnter}
+      onMouseLeave={handleArticleMouseLeave}
     >
       <div className="small-film-card__image">
         <VideoPlayer
-          key={film.id}
           src={film.preview_video_link}
-          preview={film.preview_image}
+          poster={film.preview_image}
           isActive={isPlaying}
         />
       </div>

@@ -3,11 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 type VideoPlayerProps = {
   src: string;
   isActive: boolean;
-  preview: string;
+  poster: string;
 };
 
-function VideoPlayer({ src, isActive, preview}: VideoPlayerProps): JSX.Element {
+function VideoPlayer({ src, isActive, poster}: VideoPlayerProps): JSX.Element {
   const [, setIsLoading] = useState(true);
+  const [, setVideoPlayError] = useState('');
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -28,23 +29,31 @@ function VideoPlayer({ src, isActive, preview}: VideoPlayerProps): JSX.Element {
     let timeoutId;
 
     if (isActive) {
-      timeoutId = setTimeout(() => videoRef.current?.play(), 1000);
+      timeoutId = setTimeout(
+        () =>
+          videoRef.current
+            ?.play()
+            .catch((error) => {
+              setVideoPlayError('Video cannot be loaded');
+            }),
+        1000,
+      );
     } else {
       videoRef.current?.load();
       clearTimeout(timeoutId);
     }
-  }, [isActive, src]);
+  }, [isActive]);
 
   return (
     <video
       ref={videoRef}
       src={src}
-      poster={preview}
+      poster={poster}
       className="player__video"
       muted
       width="280"
       height="175"
-      preload='metadata'
+      autoPlay={isActive}
     />
   );
 }
