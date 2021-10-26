@@ -25,7 +25,7 @@ function FilmCard({ film, onActiveCardHover }: FilmCardProps): JSX.Element {
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={handleArticleMouseEnter}
+      onMouseEnter={handleArticleMouseEnter}
       onMouseLeave={handleArticleMouseLeave}
     >
       <div className="small-film-card__image">
