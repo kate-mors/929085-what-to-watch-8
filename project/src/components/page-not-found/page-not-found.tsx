@@ -1,7 +1,7 @@
 import React from 'react';
 import CSS from 'csstype';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../utils/const';
 
 function PageNotFound(): JSX.Element {
   const containerStyleProperty: CSS.Properties = {

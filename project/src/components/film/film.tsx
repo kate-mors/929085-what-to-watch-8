@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../utils/const';
 import { FilmsType } from '../../types/films';
 import { ReviewsType } from '../../types/reviews';
 import FilmsList from '../films-list/films-list';
-import {getCurrentFilm} from '../../utils';
+import {getCurrentFilm} from '../../utils/utils';
 
 type FilmProps = {
   films: FilmsType,
@@ -66,7 +66,7 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
                 <Link
                   className="btn btn--play film-card__button"
                   type="button"
-                  to={AppRoute.Player}
+                  to={`player/${film.id}`}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>

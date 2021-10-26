@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FilmsType, FilmType } from '../../types/films';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../utils/const';
 import ReviewForm from '../review-form/review-form';
 
 type AddReviewProps = {

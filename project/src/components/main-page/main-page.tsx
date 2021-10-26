@@ -2,7 +2,7 @@ import React from 'react';
 import FilmsList from '../films-list/films-list';
 import { FilmsType } from '../../types/films';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../utils/const';
 
 type MainScreenProps = {
   films: FilmsType;
@@ -68,7 +68,7 @@ function MainPage({ films }: MainScreenProps): JSX.Element {
                 <Link
                   className="btn btn--play film-card__button"
                   type="button"
-                  to={AppRoute.Player}
+                  to={`player/${film.id}`}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>

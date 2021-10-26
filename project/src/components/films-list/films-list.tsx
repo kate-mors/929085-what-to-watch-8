@@ -3,8 +3,8 @@ import { FilmsType } from '../../types/films';
 import { useState } from 'react';
 
 type FilmsListProps = {
-  films: FilmsType,
-}
+  films: FilmsType;
+};
 
 function FilmsList({ films }: FilmsListProps): JSX.Element {
   const [, setActiveFilmCard] = useState(-1);

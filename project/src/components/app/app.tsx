@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../utils/const';
 import MainPage from '../main-page/main-page';
 import AddReview from '../add-review/add-review';
 import Film from '../film/film';
@@ -14,10 +14,9 @@ import { reviews } from '../../mocks/reviews';
 
 type AppProps = {
   films: FilmsType;
-  onActiveCardHover: (id: number) => void;
 };
 
-function App({ films, onActiveCardHover }: AppProps): JSX.Element {
+function App({ films }: AppProps): JSX.Element {
 
   return (
     <BrowserRouter>
@@ -32,7 +31,7 @@ function App({ films, onActiveCardHover }: AppProps): JSX.Element {
           exact
           path={AppRoute.MyList}
           render={() => (
-            <MyList films={films} onActiveCardHover={onActiveCardHover} />
+            <MyList films={films} />
           )}
           isLoggedIn
         >
