@@ -6,6 +6,7 @@ import { FilmsType } from '../../types/films';
 import { ReviewsType } from '../../types/reviews';
 import FilmsList from '../films-list/films-list';
 import {getCurrentFilm} from '../../utils/utils';
+import TabsList from '../tabs/tabs-list';
 
 type FilmProps = {
   films: FilmsType,
@@ -14,16 +15,14 @@ type FilmProps = {
 
 function Film({ films, reviews }: FilmProps): JSX.Element {
   const { id } = useParams<{ id: string }>();
-
-  const film = getCurrentFilm(films, id);
-
+  const currentFilm = getCurrentFilm(films, id);
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.background_image} alt={film.name} />
+            <img src={currentFilm.background_image} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -56,17 +55,17 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.name}</h2>
+              <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.released}</span>
+                <span className="film-card__genre">{currentFilm.genre}</span>
+                <span className="film-card__year">{currentFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <Link
                   className="btn btn--play film-card__button"
                   type="button"
-                  to={`player/${film.id}`}
+                  to={`player/${currentFilm.id}`}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -84,7 +83,7 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
                   <span>My list</span>
                 </Link>
                 <Link
-                  to={`/films/${film.id}/review`}
+                  to={`/films/${currentFilm.id}/review`}
                   className="btn film-card__button"
                 >
                   Add review
@@ -98,51 +97,15 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src={film.poster_image}
-                alt={film.name}
+                src={currentFilm.poster_image}
+                alt={currentFilm.name}
                 width="218"
                 height="327"
               />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item">
-                    <a className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item film-nav__item--active">
-                    <a className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <TabsList currentFilm={currentFilm} />
 
-              <div className="film-card__reviews film-card__row">
-                <div className="film-card__reviews-col">
-                  {reviews.map((review) => (
-                    <div className="review" key={review.id}>
-                      <blockquote className="review__quote">
-                        <p className="review__text">{review.comment}</p>
-
-                        <footer className="review__details">
-                          <cite className="review__author">
-                            {review.user.name}
-                          </cite>
-                          <time className="review__date" dateTime="2016-12-24">
-                            {review.date}
-                          </time>
-                        </footer>
-                      </blockquote>
-
-                      <div className="review__rating">{review.rating}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
