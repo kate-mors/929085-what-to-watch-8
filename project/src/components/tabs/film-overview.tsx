@@ -13,7 +13,9 @@ function FilmOverview({ film }: FilmOverviewProps): JSX.Element {
       <div className="film-rating">
         <div className="film-rating__score">{film.rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">{getRatingLevel(film.rating)}</span>
+          <span className="film-rating__level">
+            {getRatingLevel(film.rating)}
+          </span>
           <span className="film-rating__count">
             {film.scores_count} ratings
           </span>
@@ -23,11 +25,11 @@ function FilmOverview({ film }: FilmOverviewProps): JSX.Element {
         <p>{film.description}</p>
 
         <p className="film-card__director">
-          <strong>Director: {film.director}</strong>
+          <strong>Director: {film.director.join(', ')}</strong>
         </p>
 
         <p className="film-card__starring">
-          <strong>Starring: {film.starring}</strong>
+          <strong>Starring: {film.starring.slice(0, 3).join(', ')}</strong>
         </p>
       </div>
     </>

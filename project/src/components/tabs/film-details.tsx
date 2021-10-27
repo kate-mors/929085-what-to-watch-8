@@ -13,18 +13,24 @@ function FilmDetails({ film }: FilmDetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>
-          <span className="film-card__details-value">{film.director}</span>
+          <span className="film-card__details-value">
+            {film.director.join(', ')}
+          </span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
-          <span className="film-card__details-value">{film.starring}</span>
+          <span className="film-card__details-value">
+            {film.starring.join(', ')}
+          </span>
         </p>
       </div>
 
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{convertFilmRunTime(film.run_time)}</span>
+          <span className="film-card__details-value">
+            {convertFilmRunTime(film.run_time)}
+          </span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

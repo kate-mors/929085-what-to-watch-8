@@ -17,7 +17,7 @@ function FilmReviews({ reviews }: FilmReviewsProps): JSX.Element {
               <p className="review__text">{review.comment}</p>
 
               <footer className="review__details">
-                <cite className="review__author">{review.user}</cite>
+                <cite className="review__author">{review.user.name}</cite>
                 <time
                   className="review__date"
                   dateTime={getTimeAtribute(review.date)}
@@ -38,7 +38,7 @@ function FilmReviews({ reviews }: FilmReviewsProps): JSX.Element {
               <p className="review__text">{review.comment}</p>
 
               <footer className="review__details">
-                <cite className="review__author">{review.user}</cite>
+                <cite className="review__author">{review.user.name}</cite>
                 <time
                   className="review__date"
                   dateTime={getTimeAtribute(review.date)}
