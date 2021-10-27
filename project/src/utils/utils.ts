@@ -14,6 +14,8 @@ export const getCurrentFilm = (filmsArray: FilmsType, id: string) =>
 export const getFavoriteFilms = (filmsArray: FilmsType) =>
   filmsArray.filter((filmItem) => filmItem.is_favorite);
 
+export const getSameGenreFilms = (filmsArray: FilmsType, genre:string, id:number) => filmsArray.filter((filmItem) => filmItem.id !== id && filmItem.genre === genre) || ({} as FilmType);
+
 export const getRatingLevel = (score: number) => {
   let ratingLevel;
 

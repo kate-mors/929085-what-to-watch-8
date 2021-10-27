@@ -5,7 +5,7 @@ import { AppRoute } from '../../utils/const';
 import { FilmsType } from '../../types/films';
 import { ReviewsType } from '../../types/reviews';
 import FilmsList from '../films-list/films-list';
-import {getCurrentFilm} from '../../utils/utils';
+import {getCurrentFilm, getSameGenreFilms} from '../../utils/utils';
 import TabsList from '../tabs/tabs-list';
 
 type FilmProps = {
@@ -16,6 +16,7 @@ type FilmProps = {
 function Film({ films, reviews }: FilmProps): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const currentFilm = getCurrentFilm(films, id);
+  const sameGenreFilms = getSameGenreFilms(films, currentFilm.genre, currentFilm.id).slice(0, 4);
 
   return (
     <>
@@ -105,7 +106,6 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
             </div>
 
             <TabsList currentFilm={currentFilm} />
-
           </div>
         </div>
       </section>
@@ -114,7 +114,7 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films} />
+          <FilmsList films={sameGenreFilms} />
         </section>
 
         <footer className="page-footer">
