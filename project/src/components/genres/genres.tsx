@@ -11,11 +11,12 @@ type GenresProps = {
 function Genres({ films, genres, onGenreClick }: GenresProps): JSX.Element {
 
   const genresList = films.map((film) => film.genre);
-  const genresArray = Array.from(new Set([DEFAULT_GENRE, ...genresList]));
+
+  const uniqueGenres = Array.from(new Set([DEFAULT_GENRE, ...genresList]));
 
   return (
     <ul className="catalog__genres-list">
-      {genresArray.map((genreItem) => (
+      {uniqueGenres.map((genreItem) => (
         <li
           className={`catalog__genres-item ${
             genres === genreItem || genres === DEFAULT_GENRE
