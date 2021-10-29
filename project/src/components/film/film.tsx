@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { AppRoute } from '../../utils/const';
 import { FilmsType } from '../../types/films';
 import { ReviewsType } from '../../types/reviews';
@@ -14,6 +14,7 @@ type FilmProps = {
 }
 
 function Film({ films, reviews }: FilmProps): JSX.Element {
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const currentFilm = getCurrentFilm(films, id);
   const sameGenreFilms = getSameGenreFilms(films, currentFilm.genre, currentFilm.id).slice(0, 4);
@@ -63,26 +64,30 @@ function Film({ films, reviews }: FilmProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <Link
+                <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  to={`player/${currentFilm.id}`}
+                  onClick={() => {
+                    history.push(`/player/${currentFilm.id}`);
+                  }}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </Link>
-                <Link
+                </button>
+                <button
                   className="btn btn--list film-card__button"
                   type="button"
-                  to={AppRoute.MyList}
+                  onClick={() => {
+                    history.push(AppRoute.MyList);
+                  }}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                </Link>
+                </button>
                 <Link
                   to={`/films/${currentFilm.id}/review`}
                   className="btn film-card__button"

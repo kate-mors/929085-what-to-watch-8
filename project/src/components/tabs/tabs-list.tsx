@@ -10,42 +10,40 @@ type TabsListProps = {
 }
 
 function TabsList({ currentFilm }: TabsListProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState('Overview');
 
-  const tabsArray = [
-    { id: 0, name: 'Overview' },
-    { id: 1, name: 'Details' },
-    { id: 2, name: 'Reviews' },
-  ];
+  const tabsArray = ['Overview', 'Details', 'Reviews'];
 
   const getActiveTab = () => {
     switch (activeTab) {
-      case 0:
+      case 'Overview':
         return <FilmOverview film={currentFilm} />;
-      case 1:
+      case 'Details':
         return <FilmDetails film={currentFilm} />;
-      case 2:
+      case 'Reviews':
         return <FilmReviews reviews={reviews} />;
       default:
-        return ['Error'];
+        return <FilmOverview film={currentFilm} />;
     }
+  };
+
+  const handleTabClick = (evt: MouseEvent<HTMLLIElement>) => {
+    setActiveTab(evt.currentTarget.innerText);
   };
 
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          {tabsArray.map((tab, index) => (
+          {tabsArray.map((tab) => (
             <li
               className={`film-nav__item ${
-                activeTab === index ? 'film-nav__item--active' : ''
+                activeTab === tab ? 'film-nav__item--active' : ''
               }`}
-              key={tab.id}
-              onClick={(evt: MouseEvent<HTMLLIElement>) => {
-                setActiveTab(index);
-              }}
+              key={tab}
+              onClick={handleTabClick}
             >
-              {tab.name && <span className="film-nav__link">{tab.name}</span>}
+              {tab && <span className="film-nav__link">{tab}</span>}
             </li>
           ))}
         </ul>
