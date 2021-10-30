@@ -1,13 +1,11 @@
-import { FilmsType } from './films';
-
 export enum ActionType {
-  ChooseGenre = 'genres/chooseGenre',
-  UpdateFilmsList = 'films/updateFilmsList',
+  ChangeGenre = 'genres/changeGenre',
   ResetGenres = 'genres/resetGenre',
+  FilterFilmsByGenre = 'films/filterFilmsByGenre',
 }
 
-export type ChooseGenreAction = {
-  type: ActionType.ChooseGenre;
+export type ChangeGenreAction = {
+  type: ActionType.ChangeGenre;
   payload: string;
 }
 
@@ -16,11 +14,10 @@ export type ResetGenreAction = {
   payload: string,
 }
 
-export type UpdateFilmsListAction = {
-  type: ActionType.UpdateFilmsList;
-  payload: FilmsType,
+export type FilterFilmsByGenreAction = {
+  type: ActionType.FilterFilmsByGenre;
 }
 
-export type Actions = ChooseGenreAction | UpdateFilmsListAction | ResetGenreAction;
+export type Actions = ChangeGenreAction | ResetGenreAction | FilterFilmsByGenreAction;
 
 

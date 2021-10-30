@@ -5,13 +5,13 @@ import { DEFAULT_GENRE, SHOWED_FILMS_NUMBER } from '../utils/const';
 
 const initialState = {
   genre: DEFAULT_GENRE,
-  films: films,
-  shownFilmsNumber: SHOWED_FILMS_NUMBER,
+  shownFilms: SHOWED_FILMS_NUMBER,
+  activeFilms: films,
 };
 
 const reducer = (state = initialState, action: Actions): State => {
   switch (action.type) {
-    case ActionType.ChooseGenre:
+    case ActionType.ChangeGenre:
       return {
         ...state,
         genre: action.payload,
@@ -20,10 +20,10 @@ const reducer = (state = initialState, action: Actions): State => {
       return {
         ...initialState,
       };
-    case ActionType.UpdateFilmsList:
+    case ActionType.FilterFilmsByGenre:
       return {
         ...state,
-        films: action.payload,
+        activeFilms: initialState.activeFilms.filter((film) => film.genre === state.genre),
       };
     default:
       return state;

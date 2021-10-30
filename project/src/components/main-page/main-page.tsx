@@ -5,25 +5,27 @@ import { Link, useHistory } from 'react-router-dom';
 import { AppRoute } from '../../utils/const';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
-import { chooseGenre } from '../../store/actions';
+import { changeGenre as changeGenreState } from '../../store/actions';
+import { resetGenre as resetGenreState } from '../../store/actions';
+import { filterFilmsByGenre as filterFilmsByGenreState } from '../../store/actions';
 import { Actions } from '../../types/action';
 import { State } from '../../types/state';
 import Genres from '../genres/genres';
-
 
 type MainScreenProps = {
   films: FilmsType;
 };
 
-const mapStateToProps = ({ genre }: State) => ({
-  genre,
+const mapStateToProps = ({ activeFilms, shownFilms }: State) => ({
+  activeFilms,
+  shownFilms,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onGenreClick(genre: string) {
-    dispatch(chooseGenre(genre));
-  },
-});
+  onChangeGenre: changeGenreState,
+  onResetGenres: resetGenreState,
+  onFilterFilms: filterFilmsByGenreState,
+}, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
@@ -32,8 +34,9 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
 function MainPage(props: ConnectedComponentProps): JSX.Element {
-  const { films, genre, onGenreClick } = props;
+  const { films, activeFilms, shownFilms } = props;
   const history = useHistory();
+  const displayedFilms = activeFilms.slice(0, shownFilms);
 
   const [film] = films;
 
@@ -125,9 +128,9 @@ function MainPage(props: ConnectedComponentProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <Genres films={films} genres={genre} onGenreClick={onGenreClick} />
+          <Genres films={films} />
 
-          <FilmsList films={films} />
+          <FilmsList films={displayedFilms} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
