@@ -1,55 +1,66 @@
-import React, { useState, MouseEvent } from 'react';
+import React from 'react';
+import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { reviews } from '../../mocks/reviews';
 import { FilmType } from '../../types/films';
-import FilmDetails from './film-details';
-import FilmOverview from './film-overview';
-import FilmReviews from './film-reviews';
+import FilmDetails from './details';
+import FilmOverview from './overview';
+import FilmReviews from './reviews';
 
 type TabsListProps = {
   currentFilm: FilmType;
 }
 
 function TabsList({ currentFilm }: TabsListProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState('Overview');
-
-  const tabsArray = ['Overview', 'Details', 'Reviews'];
-
-  const getActiveTab = () => {
-    switch (activeTab) {
-      case 'Overview':
-        return <FilmOverview film={currentFilm} />;
-      case 'Details':
-        return <FilmDetails film={currentFilm} />;
-      case 'Reviews':
-        return <FilmReviews reviews={reviews} />;
-      default:
-        return <FilmOverview film={currentFilm} />;
-    }
-  };
-
-  const handleTabClick = (evt: MouseEvent<HTMLLIElement>) => {
-    setActiveTab(evt.currentTarget.innerText);
-  };
+  const { path, url } = useRouteMatch();
 
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          {tabsArray.map((tab) => (
-            <li
-              className={`film-nav__item ${
-                activeTab === tab ? 'film-nav__item--active' : ''
-              }`}
-              key={tab}
-              onClick={handleTabClick}
+          <li className="film-nav__item">
+            <NavLink
+              exact
+              to={url}
+              className="film-nav__item film-nav__link"
+              activeClassName="film-nav__item--active"
             >
-              {tab && <span className="film-nav__link">{tab}</span>}
-            </li>
-          ))}
+              Overview
+            </NavLink>
+          </li>
+          <li className="film-nav__item">
+            <NavLink
+              exact
+              to={`${url}/details`}
+              className="film-nav__item film-nav__link"
+              activeClassName="film-nav__item--active"
+            >
+              Details
+            </NavLink>
+          </li>
+          <li className="film-nav__item">
+            <NavLink
+              exact
+              to={`${url}/reviews`}
+              className="film-nav__item film-nav__link"
+              activeClassName="film-nav__item--active"
+            >
+              Reviews
+            </NavLink>
+          </li>
         </ul>
       </nav>
 
-      {getActiveTab()}
+      <Switch>
+        <Route exact path={path}>
+          <FilmOverview film={currentFilm} />;
+        </Route>
+        <Route exact path={`${path}/details`}>
+          <FilmDetails film={currentFilm} />;
+        </Route>
+        <Route exact path={`${path}/reviews`}>
+          <FilmReviews reviews={reviews} />;
+        </Route>
+      </Switch>
     </div>
   );
 }
