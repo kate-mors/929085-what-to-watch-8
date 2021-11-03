@@ -36,7 +36,7 @@ function App({ films }: AppProps): JSX.Element {
           isLoggedIn
         >
         </PrivateRoute>
-        <Route path={AppRoute.Film} exact>
+        <Route path={AppRoute.Film}>
           <Film films={films} reviews={reviews} />
         </Route>
         <Route path={AppRoute.AddReview} exact>
