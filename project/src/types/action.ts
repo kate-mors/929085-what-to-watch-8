@@ -1,7 +1,7 @@
 export enum ActionType {
-  ChangeGenre = 'genres/changeGenre',
-  ResetGenres = 'genres/resetGenre',
-  FilterFilmsByGenre = 'films/filterFilmsByGenre',
+  ChangeGenre = 'filter/changeGenre',
+  ResetGenres = 'filter/resetGenre',
+  FilterFilmsByGenre = 'filter/filterFilmsByGenre',
 }
 
 export type ChangeGenreAction = {
@@ -16,6 +16,7 @@ export type ResetGenreAction = {
 
 export type FilterFilmsByGenreAction = {
   type: ActionType.FilterFilmsByGenre;
+  payload: string,
 }
 
 export type Actions = ChangeGenreAction | ResetGenreAction | FilterFilmsByGenreAction;

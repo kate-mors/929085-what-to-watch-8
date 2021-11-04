@@ -11,7 +11,8 @@ export const resetGenre = (genre: string): ResetGenreAction => ({
   payload: genre,
 });
 
-export const filterFilmsByGenre = (): FilterFilmsByGenreAction => ({
+export const filterFilmsByGenre = (genre: string): FilterFilmsByGenreAction => ({
   type: ActionType.FilterFilmsByGenre,
+  payload: genre,
 });
 
