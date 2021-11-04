@@ -4,11 +4,8 @@ import { FilmsType } from '../../types/films';
 import { Link, useHistory } from 'react-router-dom';
 import { AppRoute } from '../../utils/const';
 import { connect, ConnectedProps } from 'react-redux';
-import { Dispatch } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { changeGenre as changeGenreState } from '../../store/actions';
-import { resetGenre as resetGenreState } from '../../store/actions';
-import { filterFilmsByGenre as filterFilmsByGenreState } from '../../store/actions';
-import { Actions } from '../../types/action';
 import { State } from '../../types/state';
 import Genres from '../genres/genres';
 
@@ -16,27 +13,24 @@ type MainScreenProps = {
   films: FilmsType;
 };
 
-const mapStateToProps = ({ activeFilms, shownFilms }: State) => ({
+const mapStateToProps = ({ activeFilms, shownFilmsNumber }: State) => ({
   activeFilms,
-  shownFilms,
+  shownFilmsNumber,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
   onChangeGenre: changeGenreState,
-  onResetGenres: resetGenreState,
-  onFilterFilms: filterFilmsByGenreState,
 }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-
 type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
 function MainPage(props: ConnectedComponentProps): JSX.Element {
-  const { films, activeFilms, shownFilms } = props;
+  const { films, activeFilms, shownFilmsNumber } = props;
   const history = useHistory();
-  const displayedFilms = activeFilms.slice(0, shownFilms);
+  const displayedFilms = activeFilms.slice(0, shownFilmsNumber);
 
   const [film] = films;
 
@@ -128,7 +122,7 @@ function MainPage(props: ConnectedComponentProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <Genres films={films} />
+          <Genres films={ films }/>
 
           <FilmsList films={displayedFilms} />
 

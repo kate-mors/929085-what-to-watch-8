@@ -1,32 +1,54 @@
-import React, { useState, MouseEvent } from 'react';
-import { FilmsType } from '../../types/films';
+import React from 'react';
 import { DEFAULT_GENRE } from '../../utils/const';
+import { State } from '../../types/state';
+import { bindActionCreators, Dispatch } from 'redux';
+import { changeGenre as changeGenreState } from '../../store/actions';
+import { connect, ConnectedProps } from 'react-redux';
+import { FilmsType } from '../../types/films';
 
 type GenresProps = {
-  films: FilmsType,
-}
+  films: FilmsType;
+};
 
-function Genres({ films }: GenresProps): JSX.Element {
-  const [activeGenre, setActiveGenre] = useState(DEFAULT_GENRE);
+const mapStateToProps = ({ genre }: State) => ({
+  genre,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      onChangeGenre: changeGenreState,
+    },
+    dispatch,
+  );
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & GenresProps;
+
+function Genres(props: ConnectedComponentProps): JSX.Element {
+  const { genre, films, onChangeGenre } = props;
 
   const genresList = films.map((film) => film.genre);
+  // eslint-disable-next-line no-console
+  console.log(genresList);
 
   const uniqueGenres = Array.from(new Set([DEFAULT_GENRE, ...genresList]));
-
-
-  const handleGenreClick = (evt: MouseEvent<HTMLLIElement>) => {
-    setActiveGenre(evt.currentTarget.innerText);
-  };
+  // eslint-disable-next-line no-console
+  console.log(uniqueGenres);
 
   return (
     <ul className="catalog__genres-list">
       {uniqueGenres.map((genreItem) => (
         <li
           className={`catalog__genres-item ${
-            activeGenre === genreItem ? 'catalog__genres-item--active' : ''
+            genre === genreItem ? 'catalog__genres-item--active' : ''
           }`}
           key={genreItem}
-          onClick={handleGenreClick}
+          onClick={(evt) => {
+            onChangeGenre(genreItem);
+          }}
         >
           <span className="catalog__genres-link">{genreItem}</span>
         </li>
@@ -35,4 +57,5 @@ function Genres({ films }: GenresProps): JSX.Element {
   );
 }
 
-export default Genres;
+export { Genres };
+export default connector(Genres);
