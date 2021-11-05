@@ -1,14 +1,36 @@
 import React from 'react';
 import FilmsList from '../films-list/films-list';
 import { FilmsType } from '../../types/films';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../utils/const';
+import { Link, useHistory } from 'react-router-dom';
+import { AppRoute, SHOWED_FILMS_NUMBER } from '../../utils/const';
+import { connect, ConnectedProps } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import { changeGenre as changeGenreState } from '../../store/actions';
+import { State } from '../../types/state';
+import Genres from '../genres/genres';
 
 type MainScreenProps = {
   films: FilmsType;
 };
 
-function MainPage({ films }: MainScreenProps): JSX.Element {
+const mapStateToProps = ({ filteredFilms }: State) => ({
+  filteredFilms,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+  onChangeGenre: changeGenreState,
+}, dispatch);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
+
+function MainPage(props: ConnectedComponentProps): JSX.Element {
+  const { films, filteredFilms } = props;
+  const history = useHistory();
+  const displayedFilms = filteredFilms.slice(0, SHOWED_FILMS_NUMBER);
+
   const [film] = films;
 
   return (
@@ -65,26 +87,30 @@ function MainPage({ films }: MainScreenProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <Link
+                <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  to={`player/${film.id}`}
+                  onClick={() => {
+                    history.push(`player/${film.id}`);
+                  }}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </Link>
-                <Link
+                </button>
+                <button
                   className="btn btn--list film-card__button"
                   type="button"
-                  to={AppRoute.MyList}
+                  onClick={() => {
+                    history.push(AppRoute.MyList);
+                  }}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -95,60 +121,9 @@ function MainPage({ films }: MainScreenProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">
-                All genres
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Comedies
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Crime
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Documentary
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Dramas
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Horror
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Kids & Family
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Romance
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Sci-Fi
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Thrillers
-              </a>
-            </li>
-          </ul>
+          <Genres films={ films }/>
 
-          <FilmsList films={films} />
+          <FilmsList films={displayedFilms} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
@@ -175,4 +150,5 @@ function MainPage({ films }: MainScreenProps): JSX.Element {
   );
 }
 
-export default MainPage;
+export { MainPage };
+export default connector(MainPage);

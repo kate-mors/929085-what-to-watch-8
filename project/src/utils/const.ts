@@ -7,4 +7,5 @@ export enum AppRoute {
   Player = '/player/:id'
 }
 
-
+export const DEFAULT_GENRE = 'All genres';
+export const SHOWED_FILMS_NUMBER = 8;
