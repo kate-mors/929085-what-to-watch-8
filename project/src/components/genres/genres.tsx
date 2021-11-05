@@ -31,12 +31,8 @@ function Genres(props: ConnectedComponentProps): JSX.Element {
   const { genre, films, onChangeGenre } = props;
 
   const genresList = films.map((film) => film.genre);
-  // eslint-disable-next-line no-console
-  console.log(genresList);
 
   const uniqueGenres = Array.from(new Set([DEFAULT_GENRE, ...genresList]));
-  // eslint-disable-next-line no-console
-  console.log(uniqueGenres);
 
   return (
     <ul className="catalog__genres-list">
@@ -46,7 +42,7 @@ function Genres(props: ConnectedComponentProps): JSX.Element {
             genre === genreItem ? 'catalog__genres-item--active' : ''
           }`}
           key={genreItem}
-          onClick={(evt) => {
+          onClick={() => {
             onChangeGenre(genreItem);
           }}
         >

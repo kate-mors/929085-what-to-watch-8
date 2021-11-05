@@ -2,7 +2,7 @@ import React from 'react';
 import FilmsList from '../films-list/films-list';
 import { FilmsType } from '../../types/films';
 import { Link, useHistory } from 'react-router-dom';
-import { AppRoute } from '../../utils/const';
+import { AppRoute, SHOWED_FILMS_NUMBER } from '../../utils/const';
 import { connect, ConnectedProps } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { changeGenre as changeGenreState } from '../../store/actions';
@@ -13,9 +13,8 @@ type MainScreenProps = {
   films: FilmsType;
 };
 
-const mapStateToProps = ({ activeFilms, shownFilmsNumber }: State) => ({
-  activeFilms,
-  shownFilmsNumber,
+const mapStateToProps = ({ filteredFilms }: State) => ({
+  filteredFilms,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
@@ -28,9 +27,9 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
 function MainPage(props: ConnectedComponentProps): JSX.Element {
-  const { films, activeFilms, shownFilmsNumber } = props;
+  const { films, filteredFilms } = props;
   const history = useHistory();
-  const displayedFilms = activeFilms.slice(0, shownFilmsNumber);
+  const displayedFilms = filteredFilms.slice(0, SHOWED_FILMS_NUMBER);
 
   const [film] = films;
 
