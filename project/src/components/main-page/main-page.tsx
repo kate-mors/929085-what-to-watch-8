@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FilmsList from '../films-list/films-list';
 import { FilmsType } from '../../types/films';
 import { Link, useHistory } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { changeGenre as changeGenreState } from '../../store/actions';
 import { State } from '../../types/state';
 import Genres from '../genres/genres';
+import ShowMoreButton from '../show-more/show-more';
 
 type MainScreenProps = {
   films: FilmsType;
@@ -29,7 +30,14 @@ type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 function MainPage(props: ConnectedComponentProps): JSX.Element {
   const { films, filteredFilms } = props;
   const history = useHistory();
-  const displayedFilms = filteredFilms.slice(0, SHOWED_FILMS_NUMBER);
+  const [displayedFilms, setdisplayedFilms] = useState(filteredFilms.slice(0, SHOWED_FILMS_NUMBER));
+
+  let counter = 0;
+
+  const handleShowMoreClick = () => {
+    counter += SHOWED_FILMS_NUMBER;
+    setdisplayedFilms(displayedFilms.concat(filteredFilms.slice(counter, counter + SHOWED_FILMS_NUMBER)));
+  };
 
   const [film] = films;
 
@@ -120,16 +128,15 @@ function MainPage(props: ConnectedComponentProps): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <Genres films={ films }/>
-
+          <Genres films={films} />
           <FilmsList films={displayedFilms} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          {filteredFilms.length > SHOWED_FILMS_NUMBER && displayedFilms.length < filteredFilms.length ?
+            <ShowMoreButton
+              onClick={handleShowMoreClick}
+            />
+            : ''}
+
         </section>
 
         <footer className="page-footer">
