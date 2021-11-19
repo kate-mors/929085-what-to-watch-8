@@ -3,18 +3,19 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { createAPI } from './components/api/api';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/app/app';
+//import { films } from './mocks/films';
 import { reducer } from './store/reducer';
-import { createAPI } from './components/api/api';
-import { requireAuthorization } from './store/actions';
-import { AuthorizationStatus } from './utils/const';
+//import { requireAuthorization } from './store/actions';
+import { fetchFilmsAction } from './store/api-actions';
 import { ThunkAppDispatch } from './types/action';
-import { checkAuthAction, fetchFilmAction } from './store/api-actions';
+//import {AuthorizationStatus} from './utils/const';
 
-const api = createAPI(
-  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuthorization)),
-);
+const api = createAPI();
+// eslint-disable-next-line no-console
+console.log(api);
 
 const store = createStore(
   reducer,
@@ -23,8 +24,8 @@ const store = createStore(
   ),
 );
 
-(store.dispatch as ThunkAppDispatch)(checkAuthAction());
-(store.dispatch as ThunkAppDispatch)(fetchFilmAction());
+//(store.dispatch as ThunkAppDispatch)(checkAuthAction());
+(store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
 
 ReactDOM.render(
   <React.StrictMode>
@@ -34,4 +35,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
-
