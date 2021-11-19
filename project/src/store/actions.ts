@@ -1,4 +1,4 @@
-import { ActionType } from '../types/action';
+import {ActionType} from '../types/action';
 import { FilmsType } from '../types/films';
 import { AuthorizationStatus } from '../utils/const';
 
@@ -8,17 +8,21 @@ export const changeGenre = (genre: string) => ({
   payload: genre,
 } as const);
 
-
-export const loadFilms = (data: FilmsType)=> ({
-  type: ActionType.LoadFilms,
-  payload: {data},
-} as const);
-
-export const requireAuthorization = (authorizationStatus: AuthorizationStatus) => ({
-  type: ActionType.RequireAuthorization,
-  payload: authorizationStatus,
-} as const);
-
-export const showMoreFilms = ()=> ({
+export const showMoreFilms = (count: number) => ({
   type: ActionType.ShowMoreFilms,
+  payload: count,
+} as const);
+
+export const loadFilms = (films: FilmsType) => ({
+  type: ActionType.LoadFilms,
+  payload: films,
+} as const);
+
+export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+  type: ActionType.RequireAuthorization,
+  payload: authStatus,
+} as const);
+
+export const requireLogout = () => ({
+  type: ActionType.RequireLogout,
 } as const);

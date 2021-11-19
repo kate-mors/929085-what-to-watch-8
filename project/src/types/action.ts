@@ -1,34 +1,33 @@
-import { changeGenre, loadFilms, showMoreFilms, requireAuthorization } from '../store/actions';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import { AxiosInstance } from 'axios';
+import { changeGenre, showMoreFilms, loadFilms, requireAuthorization, requireLogout } from '../store/actions';
 import { State } from './state';
+
 
 export enum ActionType {
   ChangeGenre = 'main/changeGenre',
-  LoadFilms = 'data/loadFilms',
   ShowMoreFilms = 'main/showMoreFilms',
+  LoadFilms = 'data/loadFilms',
   RequireAuthorization = 'user/requireAuthorization',
+  RequireLogout = 'user/requireLogout',
 }
 
-// export type ChangeGenreAction = {
-//   type: ActionType.ChangeGenre;
-//   payload: string;
-// }
+export type ChangeGenreAction = {
+  type: ActionType.ChangeGenre;
+  payload: string;
+}
 
-// export type LoadFilmsAction = {
-//   type: ActionType.LoadFilms;
-//   payload: [];
-// }
-
-// export type ShowMoreFilmsAction = {
-//   type: ActionType.ShowMoreFilms;
-// }
+export type ShowMoreFilmsAction = {
+  type: ActionType.ShowMoreFilms;
+  payload: number;
+};
 
 export type Actions =
   | ReturnType<typeof changeGenre>
-  | ReturnType<typeof loadFilms>
   | ReturnType<typeof showMoreFilms>
-  | ReturnType<typeof requireAuthorization>;
+  | ReturnType<typeof loadFilms>
+  | ReturnType<typeof requireAuthorization>
+  | ReturnType<typeof requireLogout>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

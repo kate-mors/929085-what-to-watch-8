@@ -9,3 +9,15 @@ export enum AppRoute {
 
 export const DEFAULT_GENRE = 'All genres';
 export const SHOWED_FILMS_NUMBER = 8;
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN'
+}
+
+export enum APIRoute {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+}
