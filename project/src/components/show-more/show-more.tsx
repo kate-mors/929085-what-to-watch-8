@@ -1,17 +1,34 @@
 import React from 'react';
+import { showMoreFilms as showMoreFilmsState } from '../../store/actions';
+import { connect, ConnectedProps } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import { State } from '../../types/state';
 
-type ShowMoreButtonProps = {
-  onClick: () => void;
-};
+const mapStateToProps = ({ showedFilmsNumber }: State) => ({
+  showedFilmsNumber,
+});
 
-function ShowMoreButton({ onClick }: ShowMoreButtonProps): JSX.Element {
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+  onShowMoreFilmsClick: showMoreFilmsState,
+}, dispatch);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function ShowMoreButton(props: PropsFromRedux): JSX.Element {
+  const { onShowMoreFilmsClick, showedFilmsNumber } = props;
+
+  const handleShowMoreClick = () => {
+    onShowMoreFilmsClick(showedFilmsNumber);
+  };
 
   return (
     <div className="catalog__more">
       <button
         className="catalog__button"
         type="button"
-        onClick={onClick}
+        onClick={handleShowMoreClick}
       >
         Show more
       </button>
@@ -19,4 +36,5 @@ function ShowMoreButton({ onClick }: ShowMoreButtonProps): JSX.Element {
   );
 }
 
-export default ShowMoreButton;
+export { ShowMoreButton };
+export default connector(ShowMoreButton);
