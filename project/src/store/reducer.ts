@@ -17,8 +17,6 @@ const initialState = {
 const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
     case ActionType.LoadFilms:
-      // eslint-disable-next-line no-console
-      console.log('@LoadFilms', action.payload);
       return {
         ...state,
         initialFilms: action.payload,
@@ -26,9 +24,6 @@ const reducer = (state: State = initialState, action: Actions): State => {
         showedFilmsNumber: state.showedFilmsNumber,
       };
     case ActionType.ChangeGenre:
-      // eslint-disable-next-line no-console
-      console.log('@state', state);
-
       if (action.payload === DEFAULT_GENRE) {
         return {
           ...state,
@@ -43,7 +38,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.ShowMoreFilms:
       return {
         ...state,
-        showedFilmsNumber: state.showedFilmsNumber + action.payload,
+        showedFilmsNumber: state.showedFilmsNumber + SHOWED_FILMS_NUMBER,
       };
     case ActionType.RequireAuthorization:
       return {

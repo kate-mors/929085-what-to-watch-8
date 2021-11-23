@@ -8,9 +8,8 @@ export const changeGenre = (genre: string) => ({
   payload: genre,
 } as const);
 
-export const showMoreFilms = (count: number) => ({
+export const showMoreFilms = () => ({
   type: ActionType.ShowMoreFilms,
-  payload: count,
 } as const);
 
 export const loadFilms = (films: FilmsType) => ({

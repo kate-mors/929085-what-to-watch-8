@@ -19,7 +19,6 @@ export type ChangeGenreAction = {
 
 export type ShowMoreFilmsAction = {
   type: ActionType.ShowMoreFilms;
-  payload: number;
 };
 
 export type Actions =

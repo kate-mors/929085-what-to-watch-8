@@ -17,10 +17,10 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function ShowMoreButton(props: PropsFromRedux): JSX.Element {
-  const { onShowMoreFilmsClick, showedFilmsNumber } = props;
+  const { onShowMoreFilmsClick } = props;
 
   const handleShowMoreClick = () => {
-    onShowMoreFilmsClick(showedFilmsNumber);
+    onShowMoreFilmsClick();
   };
 
   return (
