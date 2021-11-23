@@ -7,26 +7,12 @@ type VideoPlayerProps = {
 };
 
 function VideoPlayer({ src, isActive, poster}: VideoPlayerProps): JSX.Element {
-  const [, setIsLoading] = useState(true);
   const [, setVideoPlayError] = useState('');
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (videoRef.current !== null) {
-      videoRef.current.onloadeddata = () => setIsLoading(false);
-    }
-
-    return () => {
-      if (videoRef.current !== null) {
-        videoRef.current.onloadeddata = null;
-        videoRef.current = null;
-      }
-    };
-  }, [src]);
-
-  useEffect(() => {
-    let timeoutId;
+    let timeoutId: NodeJS.Timeout;
 
     if (isActive) {
       timeoutId = setTimeout(
@@ -40,8 +26,9 @@ function VideoPlayer({ src, isActive, poster}: VideoPlayerProps): JSX.Element {
       );
     } else {
       videoRef.current?.load();
-      clearTimeout(timeoutId);
     }
+
+    return () => clearTimeout(timeoutId);
   }, [isActive]);
 
   return (
