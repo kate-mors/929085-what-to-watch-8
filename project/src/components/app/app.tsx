@@ -29,9 +29,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 function App(props: PropsFromRedux): JSX.Element {
   const { initialFilms } = props;
 
-  // eslint-disable-next-line no-console
-  console.log(initialFilms);
-
   if (initialFilms.length === 0) {
     return (
       <LoadingScreen />

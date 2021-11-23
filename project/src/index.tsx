@@ -14,8 +14,6 @@ import { ThunkAppDispatch } from './types/action';
 //import {AuthorizationStatus} from './utils/const';
 
 const api = createAPI();
-// eslint-disable-next-line no-console
-console.log(api);
 
 const store = createStore(
   reducer,
