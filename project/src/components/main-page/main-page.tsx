@@ -8,6 +8,7 @@ import { changeGenre as changeGenreState } from '../../store/actions';
 import { State } from '../../types/state';
 import Genres from '../genres/genres';
 import ShowMoreButton from '../show-more/show-more';
+import Spinner from '../spinner/spinner';
 
 const mapStateToProps = ({ initialFilms, filteredFilms, showedFilmsNumber }: State) => ({
   initialFilms,
@@ -118,7 +119,7 @@ function MainPage(props: PropsFromRedux): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <Genres films={initialFilms} />
-          <FilmsList films={displayedFilms} />
+          {filteredFilms.length > 0 ? <FilmsList films={displayedFilms} /> : <Spinner />}
 
           {filteredFilms.length > SHOWED_FILMS_NUMBER ? <ShowMoreButton /> : ''}
         </section>
