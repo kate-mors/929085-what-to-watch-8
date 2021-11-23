@@ -1,7 +1,7 @@
 import React from 'react';
 import FilmsList from '../films-list/films-list';
 import { Link, useHistory } from 'react-router-dom';
-import { AppRoute, SHOWED_FILMS_NUMBER } from '../../utils/const';
+import { AppRoute } from '../../utils/const';
 import { connect, ConnectedProps } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { changeGenre as changeGenreState } from '../../store/actions';
@@ -121,7 +121,7 @@ function MainPage(props: PropsFromRedux): JSX.Element {
           <Genres films={initialFilms} />
           {filteredFilms.length > 0 ? <FilmsList films={displayedFilms} /> : <Spinner />}
 
-          {filteredFilms.length > SHOWED_FILMS_NUMBER ? <ShowMoreButton /> : ''}
+          {filteredFilms.length !== displayedFilms.length && <ShowMoreButton />}
         </section>
 
         <footer className="page-footer">
