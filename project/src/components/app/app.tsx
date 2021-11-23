@@ -9,20 +9,37 @@ import PageNotFound from '../page-not-found/page-not-found';
 import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import PrivateRoute from '../privateroute/private-route';
-import { FilmsType } from '../../types/films';
+//import { FilmsType } from '../../types/films';
 import { reviews } from '../../mocks/reviews';
+import { State } from '../../types/state';
+import { connect, ConnectedProps } from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-type AppProps = {
-  films: FilmsType;
-};
+// const isCheckedAuth = (authorization: AuthorizationStatus): boolean =>
+//   authorization === AuthorizationStatus.Unknown;
 
-function App({ films }: AppProps): JSX.Element {
+const mapStateToProps = ({initialFilms}: State) => ({
+  initialFilms,
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function App(props: PropsFromRedux): JSX.Element {
+  const { initialFilms } = props;
+
+  if (initialFilms.length === 0) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Main} exact>
-          <MainPage films={films} />
+          <MainPage />
         </Route>
         <Route path={AppRoute.SignIn} exact>
           <SignIn />
@@ -30,20 +47,20 @@ function App({ films }: AppProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.MyList}
-          render={() => (
-            <MyList films={films} />
-          )}
-          isLoggedIn
+          render={() => <MyList films={initialFilms} />}
         >
         </PrivateRoute>
         <Route path={AppRoute.Film}>
-          <Film films={films} reviews={reviews} />
+          <Film films={initialFilms} reviews={reviews} />
         </Route>
-        <Route path={AppRoute.AddReview} exact>
-          <AddReview films={films} />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.AddReview}
+          render={() => <AddReview films={initialFilms} />}
+        >
+        </PrivateRoute>
         <Route path={AppRoute.Player} exact>
-          <Player films={films} />
+          <Player films={initialFilms} />
         </Route>
         <Route>
           <PageNotFound />
@@ -53,4 +70,5 @@ function App({ films }: AppProps): JSX.Element {
   );
 }
 
-export default App;
+export { App };
+export default connector(App);

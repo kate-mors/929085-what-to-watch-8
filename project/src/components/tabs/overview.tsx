@@ -25,7 +25,7 @@ function FilmOverview({ film }: FilmOverviewProps): JSX.Element {
         <p>{film.description}</p>
 
         <p className="film-card__director">
-          <strong>Director: {film.director.join(', ')}</strong>
+          <strong>Director: {film.director}</strong>
         </p>
 
         <p className="film-card__starring">

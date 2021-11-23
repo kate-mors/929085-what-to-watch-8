@@ -14,7 +14,7 @@ function FilmDetails({ film }: FilmDetailsProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>
           <span className="film-card__details-value">
-            {film.director.join(', ')}
+            {film.director}
           </span>
         </p>
         <p className="film-card__details-item">
