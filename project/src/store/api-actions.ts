@@ -1,7 +1,7 @@
 import {ThunkActionResult} from '../types/action';
 import {loadFilms, requireAuthorization, requireLogout} from '../store/actions';
 import {saveToken, dropToken, Token} from '../utils/token';
-import {APIRoute, AuthorizationStatus} from '../utils/const';
+import {APIRoute, AuthorizationStatus, HttpCode} from '../utils/const';
 import {FilmType} from '../types/films';
 import {AuthData} from '../types/auth-data';
 
@@ -11,13 +11,13 @@ export const fetchFilmsAction = (): ThunkActionResult =>
     dispatch(loadFilms(data));
   };
 
-// export const checkAuthAction = (): ThunkActionResult =>
-//   async (dispatch, _getState, api) => {
-//     await api.get(APIRoute.Login)
-//       .then(() => {
-//         dispatch(requireAuthorization(AuthorizationStatus.Auth));
-//       });
-//   };
+export const checkAuthAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    await api.get(APIRoute.Login);
+    if (HttpCode.Success) {
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    }
+  };
 
 export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {

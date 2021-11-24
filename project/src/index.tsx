@@ -6,14 +6,15 @@ import thunk from 'redux-thunk';
 import { createAPI } from './components/api/api';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/app/app';
-//import { films } from './mocks/films';
 import { reducer } from './store/reducer';
-//import { requireAuthorization } from './store/actions';
-import { fetchFilmsAction } from './store/api-actions';
+import { fetchFilmsAction, checkAuthAction } from './store/api-actions';
 import { ThunkAppDispatch } from './types/action';
-//import {AuthorizationStatus} from './utils/const';
+import { requireAuthorization } from './store/actions';
+import { AuthorizationStatus } from './utils/const';
 
-const api = createAPI();
+const api = createAPI(
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
+);
 
 const store = createStore(
   reducer,
@@ -22,7 +23,7 @@ const store = createStore(
   ),
 );
 
-//(store.dispatch as ThunkAppDispatch)(checkAuthAction());
+(store.dispatch as ThunkAppDispatch)(checkAuthAction());
 (store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
 
 ReactDOM.render(

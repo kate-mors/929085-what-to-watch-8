@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { AppRoute } from '../../utils/const';
+import { AppRoute, AuthorizationStatus } from '../../utils/const';
 import MainPage from '../main-page/main-page';
 import AddReview from '../add-review/add-review';
 import Film from '../film/film';
@@ -14,12 +14,14 @@ import { reviews } from '../../mocks/reviews';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { AuthData } from '../../types/auth-data';
 
-// const isCheckedAuth = (authorization: AuthorizationStatus): boolean =>
-//   authorization === AuthorizationStatus.Unknown;
+const isCheckedAuth = (authorization: AuthorizationStatus): boolean =>
+  authorization === AuthorizationStatus.Unknown;
 
-const mapStateToProps = ({initialFilms}: State) => ({
+const mapStateToProps = ({initialFilms, authorization}: State) => ({
   initialFilms,
+  authorization,
 });
 
 const connector = connect(mapStateToProps);
@@ -27,9 +29,9 @@ const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function App(props: PropsFromRedux): JSX.Element {
-  const { initialFilms } = props;
+  const { initialFilms, authorization } = props;
 
-  if (initialFilms.length === 0) {
+  if (initialFilms.length === 0 && isCheckedAuth(authorization)) {
     return (
       <LoadingScreen />
     );
@@ -42,7 +44,10 @@ function App(props: PropsFromRedux): JSX.Element {
           <MainPage />
         </Route>
         <Route path={AppRoute.SignIn} exact>
-          <SignIn />
+          <SignIn onSubmit={function (authData: AuthData): void {
+            throw new Error('Function not implemented.');
+          }}
+          />
         </Route>
         <PrivateRoute
           exact

@@ -21,3 +21,9 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
 }
+
+export enum HttpCode {
+  Success = 200,
+  Unauthorized = 401,
+  NotFound = 404,
+}

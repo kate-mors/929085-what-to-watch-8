@@ -26,7 +26,7 @@ export type Actions =
   | ReturnType<typeof showMoreFilms>
   | ReturnType<typeof loadFilms>
   | ReturnType<typeof requireAuthorization>
-  | ReturnType<typeof requireLogout>;
+  | ReturnType<typeof requireLogout>
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

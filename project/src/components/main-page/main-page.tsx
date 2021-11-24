@@ -9,11 +9,13 @@ import { State } from '../../types/state';
 import Genres from '../genres/genres';
 import ShowMoreButton from '../show-more/show-more';
 import Spinner from '../spinner/spinner';
+import { UserBlock } from '../user-block/user-block';
 
-const mapStateToProps = ({ initialFilms, filteredFilms, showedFilmsNumber }: State) => ({
+const mapStateToProps = ({ initialFilms, filteredFilms, showedFilmsNumber, authorization }: State) => ({
   initialFilms,
   filteredFilms,
   showedFilmsNumber,
+  authorization,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
@@ -49,21 +51,10 @@ function MainPage(props: PropsFromRedux): JSX.Element {
             </Link>
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock logoutAccount={function (): void {
+            throw new Error('Function not implemented.');
+          }}
+          />
         </header>
 
         <div className="film-card__wrap">

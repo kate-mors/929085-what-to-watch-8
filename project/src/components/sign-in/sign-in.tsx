@@ -1,7 +1,38 @@
+import { useRef } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { loginAction } from '../../store/api-actions';
+import { ThunkAppDispatch } from '../../types/action';
+import { AuthData } from '../../types/auth-data';
 import { AppRoute } from '../../utils/const';
 
-function SignIn(): JSX.Element {
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  onSubmit(authData: AuthData) {
+    dispatch(loginAction(authData));
+  },
+});
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+function SignIn(props: PropsFromRedux): JSX.Element {
+  const { onSubmit } = props;
+
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      onSubmit({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      });
+    }
+  };
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -17,7 +48,7 @@ function SignIn(): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -26,6 +57,7 @@ function SignIn(): JSX.Element {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                ref={loginRef}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -41,6 +73,7 @@ function SignIn(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                ref={passwordRef}
               />
               <label
                 className="sign-in__label visually-hidden"

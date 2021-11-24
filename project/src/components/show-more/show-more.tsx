@@ -15,8 +15,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
 
-function ShowMoreButton(props: PropsFromRedux): JSX.Element {
+function ShowMoreButton(props: ConnectedComponentProps): JSX.Element {
   const { onShowMoreFilmsClick } = props;
 
   const handleShowMoreClick = () => {
